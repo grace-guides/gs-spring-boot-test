@@ -65,6 +65,7 @@ dependencies {
     runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:5.2.7"
     runtimeOnly "com.h2database:h2"
     runtimeOnly "org.apache.tomcat:tomcat-jdbc"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.graceframework:grace-test-support"
     testImplementation "org.mockito:mockito-core"
     testImplementation "org.graceframework.plugins:geb"
@@ -73,6 +74,7 @@ dependencies {
     testImplementation "org.seleniumhq.selenium:selenium-support:4.2.2"
     testRuntimeOnly "org.seleniumhq.selenium:selenium-chrome-driver:4.2.2"
     testRuntimeOnly "org.seleniumhq.selenium:selenium-firefox-driver:4.2.2"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
 java {
