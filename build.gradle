@@ -6,8 +6,9 @@ buildscript {
     }
     dependencies {
         classpath "org.graceframework:grace-gradle-plugin:$graceVersion"
+        classpath "org.graceframework.plugins:asset-pipeline-gradle:5.2.7"
+        classpath "org.graceframework.plugins:database-migration:5.2.7"
         classpath "com.github.erdi:webdriver-binaries-gradle-plugin:3.2"
-        classpath "org.graceframework.plugins:asset-pipeline-gradle:5.2.5"
     }
 }
 
@@ -18,9 +19,9 @@ apply plugin: "eclipse"
 apply plugin: "idea"
 apply plugin: "war"
 apply plugin: "org.graceframework.grace-web"
+apply plugin: "org.graceframework.asset-pipeline"
 apply plugin: "com.github.erdi.webdriver-binaries"
 apply plugin: "org.graceframework.grace-gsp"
-apply plugin: "org.graceframework.asset-pipeline"
 
 repositories {
     mavenCentral()
@@ -55,18 +56,15 @@ dependencies {
     implementation "org.graceframework.plugins:cache"
     implementation "org.graceframework.plugins:async"
     implementation "org.graceframework.plugins:scaffolding"
-    implementation "org.graceframework.plugins:fields"
-    implementation "org.graceframework.plugins:hibernate5"
-    implementation "org.hibernate:hibernate-core:5.6.15.Final"
+    implementation "org.graceframework.plugins:database-migration"
     implementation "org.graceframework.plugins:events"
+    implementation "org.graceframework.plugins:fields"
     implementation "org.graceframework:grace-plugin-gsp"
+    implementation "org.graceframework.plugins:hibernate5"
     profile "org.graceframework.profiles:web"
+    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:5.2.7"
     runtimeOnly "com.h2database:h2"
     runtimeOnly "org.apache.tomcat:tomcat-jdbc"
-    runtimeOnly "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3"
-    runtimeOnly "jakarta.el:jakarta.el-api:3.0.3"
-    runtimeOnly "org.glassfish:jakarta.el:3.0.4"
-    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:5.2.5"
     testImplementation "org.graceframework:grace-test-support"
     testImplementation "org.mockito:mockito-core"
     testImplementation "org.graceframework.plugins:geb"
@@ -103,6 +101,12 @@ tasks.withType(Test) {
     useJUnitPlatform()
 }
 
+assets {
+    minifyJs = true
+    minifyCss = true
+    skipNonDigests = true
+}
+
 webdriverBinaries {
     chromedriver {
         version = '122.0.6260.0'
@@ -117,9 +121,4 @@ tasks.withType(Test) {
     systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
     systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
     systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
-}
-
-assets {
-    minifyJs = true
-    minifyCss = true
 }
