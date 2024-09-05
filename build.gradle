@@ -1,27 +1,14 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url "https://repo.gradle.org/gradle/libs-releases" }
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath "org.graceframework:grace-gradle-plugin:$graceVersion"
-        classpath "org.graceframework.plugins:asset-pipeline-gradle:5.2.7"
-        classpath "org.graceframework.plugins:database-migration:5.2.7"
-        classpath "com.github.erdi:webdriver-binaries-gradle-plugin:3.2"
-    }
+plugins {
+    id "eclipse"
+    id "idea"
+    id "war"
+    id "org.graceframework.grace-web"
+    id "org.graceframework.asset-pipeline"
+    id "com.github.erdi.webdriver-binaries"
+    id "org.graceframework.grace-gsp"
 }
 
 group "grace.guides"
-version "0.0.1-SNAPSHOT"
-
-apply plugin: "eclipse"
-apply plugin: "idea"
-apply plugin: "war"
-apply plugin: "org.graceframework.grace-web"
-apply plugin: "org.graceframework.asset-pipeline"
-apply plugin: "com.github.erdi.webdriver-binaries"
-apply plugin: "org.graceframework.grace-gsp"
 
 repositories {
     mavenCentral()
@@ -32,11 +19,10 @@ configurations {
 }
 
 dependencies {
-    developmentOnly('org.springframework.boot:spring-boot-devtools')
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
     console "org.graceframework:grace-console"
     implementation "org.springframework.boot:spring-boot-starter-logging"
     implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "org.springframework.boot:spring-boot-autoconfigure"
     implementation "org.graceframework:grace-core"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-tomcat"
@@ -53,18 +39,17 @@ dependencies {
     implementation "org.graceframework:grace-plugin-rest"
     implementation "org.graceframework:grace-plugin-services"
     implementation "org.graceframework:grace-plugin-url-mappings"
-    implementation "org.graceframework.plugins:cache"
     implementation "org.graceframework.plugins:async"
-    implementation "org.graceframework.plugins:scaffolding"
+    implementation "org.graceframework.plugins:cache"
     implementation "org.graceframework.plugins:database-migration"
     implementation "org.graceframework.plugins:events"
     implementation "org.graceframework.plugins:fields"
     implementation "org.graceframework:grace-plugin-gsp"
-    implementation "org.graceframework.plugins:hibernate5"
+    implementation "org.graceframework.plugins:hibernate"
+    implementation "org.graceframework.plugins:scaffolding"
     profile "org.graceframework.profiles:web"
-    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:5.2.7"
+    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:6.0.0"
     runtimeOnly "com.h2database:h2"
-    runtimeOnly "org.apache.tomcat:tomcat-jdbc"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.graceframework:grace-test-support"
     testImplementation "org.mockito:mockito-core"
@@ -78,19 +63,15 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = '11'
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
-bootRun {
-    ignoreExitValue true
-    jvmArgs(
-        '-Dspring.output.ansi.enabled=always', 
-        '-noverify', 
-        '-XX:TieredStopAtLevel=1',
-        '-Xmx1024m')
-    sourceResources sourceSets.main
-    String springProfilesActive = 'spring.profiles.active'
-    systemProperty springProfilesActive, System.getProperty(springProfilesActive)
+tasks.withType(Jar) {
+    configure {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
 }
 
 tasks.withType(GroovyCompile) {
@@ -103,22 +84,15 @@ tasks.withType(Test) {
     useJUnitPlatform()
 }
 
-assets {
-    minifyJs = true
-    minifyCss = true
-    skipNonDigests = true
-}
-
 webdriverBinaries {
     chromedriver {
-        version = '122.0.6260.0'
+        version = '126.0.6478.126'
         fallbackTo32Bit = true
     }
     geckodriver '0.33.0'
 }
 
 tasks.withType(Test) {
-    useJUnitPlatform()
     systemProperty "geb.env", System.getProperty('geb.env')
     systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
     systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
