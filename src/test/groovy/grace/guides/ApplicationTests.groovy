@@ -22,4 +22,9 @@ class ApplicationTests {
                 String.class)).contains("Welcome to Grace")
     }
 
+    @Test
+    void helloWorld() throws Exception {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/hello",
+                String.class)).contains("Hello, World")
+    }
 }
