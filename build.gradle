@@ -12,7 +12,6 @@ group "grace.guides"
 
 repositories {
     mavenCentral()
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 configurations {
@@ -22,15 +21,16 @@ configurations {
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     console "org.graceframework:grace-console"
-    implementation "org.springframework.boot:spring-boot-starter-logging"
-    implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "org.graceframework:grace-core"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-logging"
     implementation "org.springframework.boot:spring-boot-starter-tomcat"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.graceframework:grace-boot"
+    implementation "org.graceframework:grace-core"
     implementation "org.graceframework:grace-logging"
-    implementation "org.graceframework:grace-plugin-controllers"
     implementation "org.graceframework:grace-plugin-codecs"
+    implementation "org.graceframework:grace-plugin-controllers"
+    implementation "org.graceframework:grace-plugin-converters"
     implementation "org.graceframework:grace-plugin-databinding"
     implementation "org.graceframework:grace-plugin-datasource"
     implementation "org.graceframework:grace-plugin-domain-class"
@@ -49,7 +49,7 @@ dependencies {
     implementation "org.graceframework.plugins:hibernate"
     implementation "org.graceframework.plugins:scaffolding"
     profile "org.graceframework.profiles:web"
-    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:6.0.1"
+    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:6.1.0-M1"
     runtimeOnly "com.h2database:h2"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.graceframework:grace-test-support"
