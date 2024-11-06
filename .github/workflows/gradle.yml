@@ -29,8 +29,8 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
-      - name: Run Build
-        id: build
+      - name: Run Test
+        id: test
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: build
+          arguments: test
