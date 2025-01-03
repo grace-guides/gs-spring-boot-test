@@ -7,7 +7,7 @@ plugins {
     id "org.graceframework.grace-gsp"
 }
 
-ext['spring-framework.version'] = '6.0.23'
+ext['spring-framework.version'] = '6.1.16'
 
 group "grace.guides"
 
@@ -50,7 +50,7 @@ dependencies {
     implementation "org.graceframework.plugins:hibernate"
     implementation "org.graceframework.plugins:scaffolding"
     profile "org.graceframework.profiles:web"
-    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:6.1.0"
+    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:6.2.0-RC1"
     runtimeOnly "com.h2database:h2"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.graceframework:grace-test-support"
