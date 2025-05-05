@@ -4,7 +4,7 @@ repositories {
 }
 
 dependencies {
-    implementation "org.graceframework:grace-gradle-plugin:2023.3.0-M2"
-    implementation "org.graceframework.plugins:asset-pipeline-gradle:6.3.0-M1"
-    implementation "org.graceframework.plugins:database-migration:6.3.0-M1"
+    implementation "org.graceframework:grace-gradle-plugin:2023.3.0-RC1"
+    implementation "org.graceframework.plugins:asset-pipeline-gradle:6.3.0-RC1"
+    implementation "org.graceframework.plugins:database-migration:6.3.0-RC1"
 }

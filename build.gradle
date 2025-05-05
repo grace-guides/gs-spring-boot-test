@@ -48,7 +48,7 @@ dependencies {
     implementation "org.graceframework.plugins:hibernate"
     implementation "org.graceframework.plugins:scaffolding"
     profile "org.graceframework.profiles:web"
-    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:6.3.0-M1"
+    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin"
     runtimeOnly "com.h2database:h2"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.graceframework:grace-test-support"
